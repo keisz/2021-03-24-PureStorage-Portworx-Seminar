@@ -1,0 +1,33 @@
+# SOURCE: https://install.portworx.com/?operator=true&mc=false&kbver=&b=true&c=px-cluster-4ab8a935-a659-4af5-b597-7f02e3dd5472&stork=true&csi=true&mon=true&st=k8s&promop=true
+kind: StorageCluster
+apiVersion: core.libopenstorage.org/v1
+metadata:
+  name: px-cluster-4ab8a935-a659-4af5-b597-7f02e3dd5472
+  namespace: kube-system
+  annotations:
+    portworx.io/install-source: "https://install.portworx.com/?operator=true&mc=false&kbver=&b=true&c=px-cluster-4ab8a935-a659-4af5-b597-7f02e3dd5472&stork=true&csi=true&mon=true&st=k8s&promop=true"
+spec:
+  image: portworx/oci-monitor:2.6.2.1
+  imagePullPolicy: Always
+  kvdb:
+    internal: true
+  storage:
+    useAll: true
+  secretsProvider: k8s
+  stork:
+    enabled: true
+    args:
+      webhook-controller: "false"
+  autopilot:
+    enabled: true
+    providers:
+    - name: default
+      type: prometheus
+      params:
+        url: http://prometheus:9090
+  monitoring:
+    prometheus:
+      enabled: true
+      exportMetrics: true
+  featureGates:
+    CSI: "true"

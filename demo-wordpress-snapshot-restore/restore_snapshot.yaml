@@ -1,0 +1,8 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: VolumeSnapshotRestore
+metadata:
+  name: mysql-pv-claim
+  namespace: default
+spec:
+  sourceName: mysql-pv-claim-snapshot
+  sourceNamespace: default
